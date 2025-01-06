@@ -16,7 +16,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter(); // Initialize Hive
   Hive.registerAdapter(UserModelAdapter());
-  await Hive.openBox('users'); // Open a box
+  if (!Hive.isBoxOpen('users')) {
+    await Hive.openBox<UserModel>('users');
+  }
   runApp(
     MaterialApp(
       theme: theme,
